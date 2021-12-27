@@ -72,10 +72,9 @@ def create_user():
 
 @app.route("/user/descending_id", methods= ["GET"])
 def get_all_users_descending():
-    # Leveraging linked_list.py
-    # Get all users in DB
-    users = User.query.all() 
+    users = User.query.all()
     all_users_ll = linked_list.LinkedList()
+
     for user in users:
         all_users_ll.insert_beginning(
             {
@@ -83,8 +82,11 @@ def get_all_users_descending():
                 "name": user.name,
                 "email": user.email,
                 "address": user.address,
+                "phone": user.phone,
             }
         )
+
+    return jsonify(all_users_ll.to_list()), 200
 
 @app.route("/user/ascending_id", methods= ["GET"])
 def get_all_users_ascending():
