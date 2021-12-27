@@ -5,6 +5,7 @@ from sqlalchemy.engine import Engine
 from flask import Flask, request, jsonify
 from sqlalchemy.sql.functions import user
 from flask_sqlalchemy import SQLAlchemy
+import linked_list
 
 
 # Implements a WSGI application that is a middleman for the app
@@ -72,7 +73,18 @@ def create_user():
 @app.route("/user/descending_id", methods= ["GET"])
 def get_all_users_descending():
     # Leveraging linked_list.py
-    pass 
+    # Get all users in DB
+    users = User.query.all() 
+    all_users_ll = linked_list.LinkedList()
+    for user in users:
+        all_users_ll.insert_beginning(
+            {
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+                "address": user.address,
+            }
+        )
 
 @app.route("/user/ascending_id", methods= ["GET"])
 def get_all_users_ascending():
