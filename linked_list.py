@@ -17,4 +17,4 @@ class LinkedList:
             print(None)
         while node:
             ll_string += f"{str(node.data)} ->"
-            if node.next
+            if node.next_node is None:
